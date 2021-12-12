@@ -1,13 +1,13 @@
-package com.arjun.intuit.services.impl;
+package com.arjun.intuit.service.impl;
 
-import com.arjun.intuit.comparators.Processor;
+import com.arjun.intuit.processor.Processor;
 import com.arjun.intuit.configuration.Config;
 import com.arjun.intuit.configuration.Property;
-import com.arjun.intuit.constants.Properties;
-import com.arjun.intuit.constants.Status;
-import com.arjun.intuit.models.Output;
-import com.arjun.intuit.models.Record;
-import com.arjun.intuit.services.MatchService;
+import com.arjun.intuit.constant.Properties;
+import com.arjun.intuit.constant.Status;
+import com.arjun.intuit.model.Output;
+import com.arjun.intuit.model.Record;
+import com.arjun.intuit.service.MatchService;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -22,7 +22,7 @@ public class MatchServiceImpl implements MatchService {
 
     double score = 0.0d, total = 0.0d;
     for (Entry<Properties, Property> singleConfig : config.getConfigMap().entrySet()) {
-      Processor processor = singleConfig.getValue().getProcessor();
+      Processor<Object> processor = singleConfig.getValue().getProcessor();
       double weight = singleConfig.getValue().getWeight();
 
       score += processor.process(sourceRecord.getValues().get(singleConfig.getKey()),
@@ -53,7 +53,7 @@ public class MatchServiceImpl implements MatchService {
     double score = output.getScore();
     if (score >= config.getFullMatchThreshold()) {
       output.setStatus(Status.FULL_MATCH);
-    } else if (score >= config.getPartialMatchThreshold()) {
+    } else if (score > config.getPartialMatchThreshold()) {
       output.setStatus(Status.PARTIAL);
     } else {
       output.setStatus(Status.ONLY_IN_ONE);

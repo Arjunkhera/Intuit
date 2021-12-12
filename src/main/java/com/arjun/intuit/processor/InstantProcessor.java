@@ -1,4 +1,4 @@
-package com.arjun.intuit.comparators;
+package com.arjun.intuit.processor;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -7,7 +7,7 @@ public class InstantProcessor implements Processor<Instant> {
 
   Duration threshold;
 
-  InstantProcessor(Duration threshold) {
+  public InstantProcessor(Duration threshold) {
     this.threshold = threshold;
   }
 

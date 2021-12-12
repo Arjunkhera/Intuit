@@ -1,6 +1,6 @@
-package com.arjun.intuit.models;
+package com.arjun.intuit.model;
 
-import com.arjun.intuit.constants.Status;
+import com.arjun.intuit.constant.Status;
 import lombok.Data;
 
 @Data

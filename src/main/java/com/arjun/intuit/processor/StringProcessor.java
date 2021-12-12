@@ -1,10 +1,10 @@
-package com.arjun.intuit.comparators;
+package com.arjun.intuit.processor;
 
 public class StringProcessor implements Processor<String> {
 
   double threshold;
 
-  StringProcessor(double threshold) {
+  public StringProcessor(double threshold) {
     this.threshold = threshold;
   }
 

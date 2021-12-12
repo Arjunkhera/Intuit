@@ -1,8 +1,8 @@
-package com.arjun.intuit.services;
+package com.arjun.intuit.service;
 
 import com.arjun.intuit.configuration.Config;
-import com.arjun.intuit.models.Output;
-import com.arjun.intuit.models.Record;
+import com.arjun.intuit.model.Output;
+import com.arjun.intuit.model.Record;
 import java.util.List;
 
 public interface MatchService {

@@ -1,15 +1,14 @@
-package com.arjun.intuit.comparators;
+package com.arjun.intuit.processor;
 
-public class IntegerProcessor implements Processor<Integer> {
-
+public class DoubleProcessor implements Processor<Double> {
   double threshold;
 
-  IntegerProcessor(double threshold) {
+  public DoubleProcessor(double threshold) {
     this.threshold = threshold;
   }
 
   @Override
-  public double process(Integer first, Integer second) {
+  public double process(Double first, Double second) {
     double diff = Math.abs(first - second);
     diff = Math.min(diff, threshold);
 

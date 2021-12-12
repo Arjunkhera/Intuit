@@ -1,6 +1,6 @@
 package com.arjun.intuit.configuration;
 
-import com.arjun.intuit.constants.Properties;
+import com.arjun.intuit.constant.Properties;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
@@ -15,6 +15,9 @@ public class Config {
 
   public Config(Map<Properties, Property> inputMap) {
     this.configMap = inputMap;
+    this.fullMatchThreshold = 1.0d;
+    this.partialMatchThreshold = 0.0d;
+    this.numberOfMatches = 5;
   }
 
   private Config(Config.Builder builder) {
@@ -33,6 +36,9 @@ public class Config {
 
     public Builder() {
       this.configMap = new HashMap<>();
+      this.fullMatchThreshold = 1.0d;
+      this.partialMatchThreshold = 0.0d;
+      this.numberOfMatches = 5;
     }
 
     public Config.Builder withProperty(Properties propertyKey, Property property) {

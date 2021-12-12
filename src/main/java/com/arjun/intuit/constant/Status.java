@@ -1,4 +1,4 @@
-package com.arjun.intuit.constants;
+package com.arjun.intuit.constant;
 
 public enum Status {
   FULL_MATCH,

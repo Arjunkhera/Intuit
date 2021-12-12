@@ -1,15 +1,15 @@
-package com.arjun.intuit.services.impl;
+package com.arjun.intuit.service.impl;
 
 import com.arjun.intuit.configuration.Config;
-import com.arjun.intuit.models.Record;
-import com.arjun.intuit.services.MatchService;
-import com.arjun.intuit.services.ReadService;
+import com.arjun.intuit.model.Record;
+import com.arjun.intuit.service.MatchService;
+import com.arjun.intuit.service.ReadService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ComputeServiceImpl {
 
-  private Config config;
+  private final Config config;
 
   @Autowired
   ReadService readService;

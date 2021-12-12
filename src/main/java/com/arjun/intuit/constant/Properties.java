@@ -1,4 +1,4 @@
-package com.arjun.intuit.constants;
+package com.arjun.intuit.constant;
 
 import java.time.Instant;
 
@@ -13,6 +13,13 @@ public enum Properties {
   SGST(Double.class),
   TOTAL(Double.class);
 
-  <T> Properties(Class<T> Class) {
+  private final Class objectType;
+
+  <T> Properties(Class<T> objectType) {
+    this.objectType = objectType;
+  }
+
+  public Class getObjectType() {
+    return this.objectType;
   }
 }

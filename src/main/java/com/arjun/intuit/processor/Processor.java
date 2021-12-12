@@ -1,4 +1,4 @@
-package com.arjun.intuit.comparators;
+package com.arjun.intuit.processor;
 
 @FunctionalInterface
 public interface Processor<T> {
