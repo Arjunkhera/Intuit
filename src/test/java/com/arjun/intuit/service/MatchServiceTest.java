@@ -21,7 +21,7 @@ public class MatchServiceTest {
   @Test
   @DisplayName("Simple Full Match Test")
   public void simpleFullMatchTest() {
-    MatchServiceImpl matchService = new MatchServiceImpl();
+    MatchService matchService = new MatchServiceImpl();
     Config config = new Config.Builder()
         .withProperty(Properties.GSTIN, new Property(new StringProcessor(5)))
         .withProperty(Properties.TOTAL, new Property(new IntegerProcessor(5)))
@@ -45,7 +45,7 @@ public class MatchServiceTest {
   @Test
   @DisplayName("Simple Partial Match Test")
   public void simplePartialMatchTest() {
-    MatchServiceImpl matchService = new MatchServiceImpl();
+    MatchService matchService = new MatchServiceImpl();
     Config config = new Config.Builder()
         .withProperty(Properties.GSTIN, new Property(new StringProcessor(5)))
         .withProperty(Properties.TOTAL, new Property(new IntegerProcessor(5)))
@@ -68,7 +68,7 @@ public class MatchServiceTest {
   @Test
   @DisplayName("Simple No Match Test")
   public void simpleNoMatchTest() {
-    MatchServiceImpl matchService = new MatchServiceImpl();
+    MatchService matchService = new MatchServiceImpl();
     Config config = new Config.Builder()
         .withProperty(Properties.GSTIN, new Property(new StringProcessor(5)))
         .withProperty(Properties.TOTAL, new Property(new IntegerProcessor(5)))
