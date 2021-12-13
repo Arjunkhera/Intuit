@@ -1,26 +1,23 @@
 package com.arjun.intuit.processor;
 
-public class StringProcessor implements Processor<String> {
+import lombok.NoArgsConstructor;
 
-  double threshold;
+@NoArgsConstructor
+public class StringProcessor extends Processor<String, Double> {
 
-  public StringProcessor(double threshold) {
-    this.threshold = threshold;
+  public StringProcessor(Double threshold) {
+    super(threshold);
   }
 
   @Override
   public double process(String first, String second) {
-    if(isArgumentNull(first, second)) {
-      return getEmptyScore(first, second);
-    }
-
     double distance = findLevenshteinDistance(first, second);
     distance = Math.min(distance, threshold);
 
     return (threshold - distance) / threshold;
   }
 
-  private int findLevenshteinDistance(String word1, String word2) {
+  private double findLevenshteinDistance(String word1, String word2) {
     int[][] ans = new int[word1.length() + 1][word2.length() + 1];
     for (int i = 0; i <= word1.length(); i++) {
       ans[i][0] = i;

@@ -2,14 +2,12 @@ package com.arjun.intuit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.arjun.intuit.model.Config;
-import com.arjun.intuit.model.ColumnConfig;
 import com.arjun.intuit.constant.ColumnProperty;
 import com.arjun.intuit.constant.Status;
+import com.arjun.intuit.model.Config;
 import com.arjun.intuit.model.Output;
 import com.arjun.intuit.model.Record;
-import com.arjun.intuit.processor.IntegerProcessor;
-import com.arjun.intuit.processor.StringProcessor;
+import com.arjun.intuit.service.impl.ColumnConfigFactory;
 import com.arjun.intuit.service.impl.MatchServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,18 +21,18 @@ public class MatchServiceTest {
   public void simpleFullMatchTest() {
     MatchService matchService = new MatchServiceImpl();
     Config config = new Config.Builder()
-        .withProperty(ColumnProperty.GSTIN, new ColumnConfig(new StringProcessor(5)))
-        .withProperty(ColumnProperty.TOTAL, new ColumnConfig(new IntegerProcessor(5)))
+        .withProperty(ColumnConfigFactory.create(ColumnProperty.GSTIN, 1.0, 5.0d))
+        .withProperty(ColumnConfigFactory.create(ColumnProperty.TOTAL, 1.0, 5.0d))
         .build();
 
     Map<ColumnProperty, Object> sourceValues = new HashMap<>();
     sourceValues.put(ColumnProperty.GSTIN, "Word");
-    sourceValues.put(ColumnProperty.TOTAL, 1276);
+    sourceValues.put(ColumnProperty.TOTAL, 1276.0d);
     Record sourceRecord = new Record(sourceValues);
 
     Map<ColumnProperty, Object> matchValues = new HashMap<>();
     matchValues.put(ColumnProperty.GSTIN, "Word");
-    matchValues.put(ColumnProperty.TOTAL, 1276);
+    matchValues.put(ColumnProperty.TOTAL, 1276.0d);
     Record matchRecord = new Record(matchValues);
 
     Output output = matchService.match(config, sourceRecord, matchRecord);
@@ -47,18 +45,18 @@ public class MatchServiceTest {
   public void simplePartialMatchTest() {
     MatchService matchService = new MatchServiceImpl();
     Config config = new Config.Builder()
-        .withProperty(ColumnProperty.GSTIN, new ColumnConfig(new StringProcessor(5)))
-        .withProperty(ColumnProperty.TOTAL, new ColumnConfig(new IntegerProcessor(5)))
+        .withProperty(ColumnConfigFactory.create(ColumnProperty.GSTIN, 1.0, 5.0d))
+        .withProperty(ColumnConfigFactory.create(ColumnProperty.TOTAL, 1.0, 5.0d))
         .build();
 
     Map<ColumnProperty, Object> sourceValues = new HashMap<>();
     sourceValues.put(ColumnProperty.GSTIN, "Word");
-    sourceValues.put(ColumnProperty.TOTAL, 1276);
+    sourceValues.put(ColumnProperty.TOTAL, 1276.0d);
     Record sourceRecord = new Record(sourceValues);
 
     Map<ColumnProperty, Object> matchValues = new HashMap<>();
     matchValues.put(ColumnProperty.GSTIN, "WordGam");
-    matchValues.put(ColumnProperty.TOTAL, 1280);
+    matchValues.put(ColumnProperty.TOTAL, 1280.0d);
     Record matchRecord = new Record(matchValues);
 
     Output output = matchService.match(config, sourceRecord, matchRecord);
@@ -70,18 +68,18 @@ public class MatchServiceTest {
   public void simpleNoMatchTest() {
     MatchService matchService = new MatchServiceImpl();
     Config config = new Config.Builder()
-        .withProperty(ColumnProperty.GSTIN, new ColumnConfig(new StringProcessor(5)))
-        .withProperty(ColumnProperty.TOTAL, new ColumnConfig(new IntegerProcessor(5)))
+        .withProperty(ColumnConfigFactory.create(ColumnProperty.GSTIN, 1.0, 5.0d))
+        .withProperty(ColumnConfigFactory.create(ColumnProperty.TOTAL, 1.0, 5.0d))
         .build();
 
     Map<ColumnProperty, Object> sourceValues = new HashMap<>();
     sourceValues.put(ColumnProperty.GSTIN, "Word");
-    sourceValues.put(ColumnProperty.TOTAL, 1276);
+    sourceValues.put(ColumnProperty.TOTAL, 1276.0d);
     Record sourceRecord = new Record(sourceValues);
 
     Map<ColumnProperty, Object> matchValues = new HashMap<>();
     matchValues.put(ColumnProperty.GSTIN, "WordGames");
-    matchValues.put(ColumnProperty.TOTAL, 1289);
+    matchValues.put(ColumnProperty.TOTAL, 1289.0d);
     Record matchRecord = new Record(matchValues);
 
     Output output = matchService.match(config, sourceRecord, matchRecord);

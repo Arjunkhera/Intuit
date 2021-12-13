@@ -1,5 +1,6 @@
 package com.arjun.intuit.service.impl;
 
+import com.arjun.intuit.model.ColumnConfig;
 import com.arjun.intuit.model.Config;
 import com.arjun.intuit.constant.ColumnProperty;
 import com.arjun.intuit.exception.ReadServiceException;
@@ -102,9 +103,9 @@ public class ReadServiceImpl implements ReadService {
     for (int index = 0; index < keys.size(); index++) {
       String key = keys.get(index);
 
-      for (ColumnProperty property : config.getConfigMap().keySet()) {
-        if (key.equals(property.getKeyName())) {
-          propertyIndexMap.put(index, property);
+      for (ColumnConfig columnConfig : config.getColumnConfigList()) {
+        if (key.equals(columnConfig.getColumnProperty().getKeyName())) {
+          propertyIndexMap.put(index, columnConfig.getColumnProperty());
         }
       }
     }

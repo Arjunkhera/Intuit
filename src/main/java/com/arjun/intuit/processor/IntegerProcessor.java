@@ -1,19 +1,16 @@
 package com.arjun.intuit.processor;
 
-public class IntegerProcessor implements Processor<Integer> {
+import lombok.NoArgsConstructor;
 
-  double threshold;
+@NoArgsConstructor
+public class IntegerProcessor extends Processor<Integer, Double> {
 
-  public IntegerProcessor(double threshold) {
-    this.threshold = threshold;
+  public IntegerProcessor(Double threshold) {
+    super(threshold);
   }
 
   @Override
   public double process(Integer first, Integer second) {
-    if(isArgumentNull(first, second)) {
-      return getEmptyScore(first, second);
-    }
-
     double diff = Math.abs(first - second);
     diff = Math.min(diff, threshold);
 

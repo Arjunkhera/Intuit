@@ -1,6 +1,5 @@
 package com.arjun.intuit.service.impl;
 
-import com.arjun.intuit.constant.ColumnProperty;
 import com.arjun.intuit.model.ColumnConfig;
 import com.arjun.intuit.model.Config;
 import com.arjun.intuit.model.Output;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,12 +23,12 @@ public class MatchServiceImpl implements MatchService {
     Output output = new Output(matchRecord);
     double score = 0.0d, total = 0.0d;
 
-    for (Entry<ColumnProperty, ColumnConfig> singleConfig : config.getConfigMap().entrySet()) {
-      Processor<Object> processor = singleConfig.getValue().getProcessor();
-      double weight = singleConfig.getValue().getWeight();
+    for (ColumnConfig columnConfig :config.getColumnConfigList()) {
+      Processor<Object, Object> processor = columnConfig.getProcessor();
+      double weight = columnConfig.getWeight();
 
-      score += processor.process(sourceRecord.getValues().get(singleConfig.getKey()),
-          matchRecord.getValues().get(singleConfig.getKey())) * weight;
+      score += processor.compare(sourceRecord.getValues().get(columnConfig.getColumnProperty()),
+          matchRecord.getValues().get(columnConfig.getColumnProperty())) * weight;
       total += weight;
     }
     output.setScore(score / total);

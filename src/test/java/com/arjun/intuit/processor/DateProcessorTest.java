@@ -12,34 +12,34 @@ public class DateProcessorTest {
   @Test
   @DisplayName("Instant Processor Full Match Test")
   public void fullMatch() {
-    Processor<Instant> processor = new InstantProcessor(Duration.ofDays(1));
+    Processor<Instant, Duration> processor = new InstantProcessor(Duration.ofDays(1));
 
     long now = System.currentTimeMillis();
     Instant first = Instant.ofEpochMilli(now);
     Instant second = Instant.ofEpochMilli(now);
 
-    assertEquals(processor.process(first, second), 1.0d, "Score failed to match");
+    assertEquals(processor.compare(first, second), 1.0d, "Score failed to match");
   }
 
   @Test
   @DisplayName("Instant Processor Partial Match Test")
   public void partialMatch() {
-    Processor<Instant> processor = new InstantProcessor(Duration.ofDays(1));
+    Processor<Instant, Duration> processor = new InstantProcessor(Duration.ofDays(1));
 
     Instant first = Instant.now();
     Instant second = Instant.now().minus(Duration.ofHours(6));
 
-    assertEquals(processor.process(first, second), 0.75d, "Score failed to match");
+    assertEquals(processor.compare(first, second), 0.75d, "Score failed to match");
   }
 
   @Test
   @DisplayName("Instant Processor Zero Match")
   public void zeroMatchBelowThreshold() {
-    Processor<Instant> processor = new InstantProcessor(Duration.ofDays(1));
+    Processor<Instant, Duration> processor = new InstantProcessor(Duration.ofDays(1));
 
     Instant first = Instant.now();
     Instant second = Instant.now().minus(Duration.ofDays(2));
 
-    assertEquals(processor.process(first, second), 0.0d, "Score failed to match");
+    assertEquals(processor.compare(first, second), 0.0d, "Score failed to match");
   }
 }
