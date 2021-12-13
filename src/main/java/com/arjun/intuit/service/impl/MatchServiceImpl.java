@@ -1,9 +1,9 @@
 package com.arjun.intuit.service.impl;
 
 import com.arjun.intuit.processor.Processor;
-import com.arjun.intuit.configuration.Config;
-import com.arjun.intuit.configuration.Property;
-import com.arjun.intuit.constant.Properties;
+import com.arjun.intuit.model.Config;
+import com.arjun.intuit.model.ColumnConfig;
+import com.arjun.intuit.constant.ColumnProperty;
 import com.arjun.intuit.constant.Status;
 import com.arjun.intuit.model.Output;
 import com.arjun.intuit.model.Record;
@@ -26,7 +26,7 @@ public class MatchServiceImpl implements MatchService {
     Output output = new Output(matchRecord);
 
     double score = 0.0d, total = 0.0d;
-    for (Entry<Properties, Property> singleConfig : config.getConfigMap().entrySet()) {
+    for (Entry<ColumnProperty, ColumnConfig> singleConfig : config.getConfigMap().entrySet()) {
       Processor<Object> processor = singleConfig.getValue().getProcessor();
       double weight = singleConfig.getValue().getWeight();
 

@@ -1,8 +1,9 @@
 package com.arjun.intuit.service;
 
-import com.arjun.intuit.configuration.Config;
-import com.arjun.intuit.configuration.Property;
-import com.arjun.intuit.constant.Properties;
+import com.arjun.intuit.model.Config;
+import com.arjun.intuit.model.ColumnConfig;
+import com.arjun.intuit.constant.ColumnProperty;
+import com.arjun.intuit.exception.ReadServiceException;
 import com.arjun.intuit.processor.DoubleProcessor;
 import com.arjun.intuit.processor.InstantProcessor;
 import com.arjun.intuit.processor.StringProcessor;
@@ -20,17 +21,18 @@ public class ComputeServiceTest {
 
   @Test
   @DisplayName("Compute Service Test")
-  public void computeServiceTest() {
+  public void computeServiceTest() throws ReadServiceException {
     Config config = new Config.Builder()
-        .withProperty(Properties.GSTIN, new Property(new StringProcessor(1)))
-        .withProperty(Properties.DATE, new Property(new InstantProcessor(Duration.ofDays(3))))
-        .withProperty(Properties.BILLNO, new Property(new StringProcessor(3)))
-        .withProperty(Properties.GSTRATE, new Property(new DoubleProcessor(0.5d)))
-        .withProperty(Properties.TAXVALUE, new Property(new DoubleProcessor(1000d)))
-        .withProperty(Properties.IGST, new Property(new DoubleProcessor(0.5d)))
-        .withProperty(Properties.CGST, new Property(new DoubleProcessor(200d)))
-        .withProperty(Properties.SGST, new Property(new DoubleProcessor(200d)))
-        .withProperty(Properties.TOTAL, new Property(new DoubleProcessor(1000d)))
+        .withProperty(ColumnProperty.GSTIN, new ColumnConfig(new StringProcessor(1)))
+        .withProperty(ColumnProperty.DATE, new ColumnConfig(new InstantProcessor(Duration.ofDays(3))))
+        .withProperty(ColumnProperty.BILLNO, new ColumnConfig(new StringProcessor(3)))
+        .withProperty(ColumnProperty.GSTRATE, new ColumnConfig(new DoubleProcessor(0.5d)))
+        .withProperty(ColumnProperty.TAXVALUE, new ColumnConfig(new DoubleProcessor(1000d)))
+        .withProperty(ColumnProperty.IGST, new ColumnConfig(new DoubleProcessor(0.5d)))
+        .withProperty(ColumnProperty.CGST, new ColumnConfig(new DoubleProcessor(200d)))
+        .withProperty(ColumnProperty.SGST, new ColumnConfig(new DoubleProcessor(200d)))
+        .withProperty(ColumnProperty.TOTAL, new ColumnConfig(new DoubleProcessor(1000d)))
+        .withPartialMatchThreshold(0.5d)
         .withMatchValues(3)
         .build();
 

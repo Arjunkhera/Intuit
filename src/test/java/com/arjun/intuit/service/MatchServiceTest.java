@@ -2,9 +2,9 @@ package com.arjun.intuit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.arjun.intuit.configuration.Config;
-import com.arjun.intuit.configuration.Property;
-import com.arjun.intuit.constant.Properties;
+import com.arjun.intuit.model.Config;
+import com.arjun.intuit.model.ColumnConfig;
+import com.arjun.intuit.constant.ColumnProperty;
 import com.arjun.intuit.constant.Status;
 import com.arjun.intuit.model.Output;
 import com.arjun.intuit.model.Record;
@@ -23,18 +23,18 @@ public class MatchServiceTest {
   public void simpleFullMatchTest() {
     MatchService matchService = new MatchServiceImpl();
     Config config = new Config.Builder()
-        .withProperty(Properties.GSTIN, new Property(new StringProcessor(5)))
-        .withProperty(Properties.TOTAL, new Property(new IntegerProcessor(5)))
+        .withProperty(ColumnProperty.GSTIN, new ColumnConfig(new StringProcessor(5)))
+        .withProperty(ColumnProperty.TOTAL, new ColumnConfig(new IntegerProcessor(5)))
         .build();
 
-    Map<Properties, Object> sourceValues = new HashMap<>();
-    sourceValues.put(Properties.GSTIN, "Word");
-    sourceValues.put(Properties.TOTAL, 1276);
+    Map<ColumnProperty, Object> sourceValues = new HashMap<>();
+    sourceValues.put(ColumnProperty.GSTIN, "Word");
+    sourceValues.put(ColumnProperty.TOTAL, 1276);
     Record sourceRecord = new Record(sourceValues);
 
-    Map<Properties, Object> matchValues = new HashMap<>();
-    matchValues.put(Properties.GSTIN, "Word");
-    matchValues.put(Properties.TOTAL, 1276);
+    Map<ColumnProperty, Object> matchValues = new HashMap<>();
+    matchValues.put(ColumnProperty.GSTIN, "Word");
+    matchValues.put(ColumnProperty.TOTAL, 1276);
     Record matchRecord = new Record(matchValues);
 
     Output output = matchService.match(config, sourceRecord, matchRecord);
@@ -47,18 +47,18 @@ public class MatchServiceTest {
   public void simplePartialMatchTest() {
     MatchService matchService = new MatchServiceImpl();
     Config config = new Config.Builder()
-        .withProperty(Properties.GSTIN, new Property(new StringProcessor(5)))
-        .withProperty(Properties.TOTAL, new Property(new IntegerProcessor(5)))
+        .withProperty(ColumnProperty.GSTIN, new ColumnConfig(new StringProcessor(5)))
+        .withProperty(ColumnProperty.TOTAL, new ColumnConfig(new IntegerProcessor(5)))
         .build();
 
-    Map<Properties, Object> sourceValues = new HashMap<>();
-    sourceValues.put(Properties.GSTIN, "Word");
-    sourceValues.put(Properties.TOTAL, 1276);
+    Map<ColumnProperty, Object> sourceValues = new HashMap<>();
+    sourceValues.put(ColumnProperty.GSTIN, "Word");
+    sourceValues.put(ColumnProperty.TOTAL, 1276);
     Record sourceRecord = new Record(sourceValues);
 
-    Map<Properties, Object> matchValues = new HashMap<>();
-    matchValues.put(Properties.GSTIN, "WordGam");
-    matchValues.put(Properties.TOTAL, 1280);
+    Map<ColumnProperty, Object> matchValues = new HashMap<>();
+    matchValues.put(ColumnProperty.GSTIN, "WordGam");
+    matchValues.put(ColumnProperty.TOTAL, 1280);
     Record matchRecord = new Record(matchValues);
 
     Output output = matchService.match(config, sourceRecord, matchRecord);
@@ -70,18 +70,18 @@ public class MatchServiceTest {
   public void simpleNoMatchTest() {
     MatchService matchService = new MatchServiceImpl();
     Config config = new Config.Builder()
-        .withProperty(Properties.GSTIN, new Property(new StringProcessor(5)))
-        .withProperty(Properties.TOTAL, new Property(new IntegerProcessor(5)))
+        .withProperty(ColumnProperty.GSTIN, new ColumnConfig(new StringProcessor(5)))
+        .withProperty(ColumnProperty.TOTAL, new ColumnConfig(new IntegerProcessor(5)))
         .build();
 
-    Map<Properties, Object> sourceValues = new HashMap<>();
-    sourceValues.put(Properties.GSTIN, "Word");
-    sourceValues.put(Properties.TOTAL, 1276);
+    Map<ColumnProperty, Object> sourceValues = new HashMap<>();
+    sourceValues.put(ColumnProperty.GSTIN, "Word");
+    sourceValues.put(ColumnProperty.TOTAL, 1276);
     Record sourceRecord = new Record(sourceValues);
 
-    Map<Properties, Object> matchValues = new HashMap<>();
-    matchValues.put(Properties.GSTIN, "WordGames");
-    matchValues.put(Properties.TOTAL, 1289);
+    Map<ColumnProperty, Object> matchValues = new HashMap<>();
+    matchValues.put(ColumnProperty.GSTIN, "WordGames");
+    matchValues.put(ColumnProperty.TOTAL, 1289);
     Record matchRecord = new Record(matchValues);
 
     Output output = matchService.match(config, sourceRecord, matchRecord);

@@ -1,7 +1,8 @@
 package com.arjun.intuit.service.impl;
 
-import com.arjun.intuit.configuration.Config;
-import com.arjun.intuit.constant.Properties;
+import com.arjun.intuit.model.Config;
+import com.arjun.intuit.constant.ColumnProperty;
+import com.arjun.intuit.exception.ReadServiceException;
 import com.arjun.intuit.model.Record;
 import com.arjun.intuit.service.ParsingService;
 import com.arjun.intuit.service.ReadService;
@@ -27,7 +28,7 @@ public class ReadServiceImpl implements ReadService {
   ParsingService parsingService;
 
   @Override
-  public List<Record> read(Config config, String inputFilePath) {
+  public List<Record> read(Config config, String inputFilePath) throws ReadServiceException {
     List<Record> records = new ArrayList<>();
 
     try {
@@ -35,14 +36,14 @@ public class ReadServiceImpl implements ReadService {
       List<List<String>> values = readRecord(inputFilePath);
 
       // Parse the columns for keys
-      Map<Integer, Properties> propertyIndexMap = generateKeyIndexMap(config, values.get(0));
+      Map<Integer, ColumnProperty> propertyIndexMap = generateKeyIndexMap(config, values.get(0));
 
       // Read the contents of the rows
       for (List<String> row : values.subList(1, values.size())) {
-        Map<Properties, Object> recordValues = new HashMap<>();
+        Map<ColumnProperty, Object> recordValues = new HashMap<>();
         for (int index = 0; index < row.size(); index++) {
           String sourceValue = row.get(index);
-          Properties property = propertyIndexMap.get(index);
+          ColumnProperty property = propertyIndexMap.get(index);
 
           if (sourceValue.equals("")) {
             recordValues.put(property, null);
@@ -59,8 +60,12 @@ public class ReadServiceImpl implements ReadService {
 
         records.add(new Record(recordValues));
       }
-    } catch (Exception exception) {
-      log.error("Failed to read file with exception {}", exception.toString());
+    } catch (IOException | CsvValidationException exception) {
+      log.error("Failed to read file {}", Arrays.toString(exception.getStackTrace()));
+      throw new ReadServiceException("Failed to read file", exception);
+    } catch (Exception e) {
+      log.error("Failed to process read  {}", Arrays.toString(e.getStackTrace()));
+      throw new ReadServiceException("Failed to process read operation", e);
     }
 
     return records;
@@ -92,12 +97,12 @@ public class ReadServiceImpl implements ReadService {
    * @param keys the keys obtained from CSV file
    * @return set of config keys obtained from CSV and their index values
    */
-  private Map<Integer, Properties> generateKeyIndexMap(Config config, List<String> keys) {
-    Map<Integer, Properties> propertyIndexMap = new HashMap<>();
+  private Map<Integer, ColumnProperty> generateKeyIndexMap(Config config, List<String> keys) {
+    Map<Integer, ColumnProperty> propertyIndexMap = new HashMap<>();
     for (int index = 0; index < keys.size(); index++) {
       String key = keys.get(index);
 
-      for (Properties property : config.getConfigMap().keySet()) {
+      for (ColumnProperty property : config.getConfigMap().keySet()) {
         if (key.equals(property.getKeyName())) {
           propertyIndexMap.put(index, property);
         }

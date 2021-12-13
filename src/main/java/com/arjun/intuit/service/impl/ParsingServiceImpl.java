@@ -33,8 +33,11 @@ public class ParsingServiceImpl implements ParsingService {
 
   @Override
   public Instant parseInstant(String input) {
-    LocalDate localDate = parseFormats(input, DateTimeFormatter.ofPattern("d/M/yy"),
-        DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    DateTimeFormatter[] formats = new DateTimeFormatter[] {
+        DateTimeFormatter.ofPattern("d/M/yy"),
+        DateTimeFormatter.ofPattern("dd-MM-yyyy")
+    };
+    LocalDate localDate = parseFormats(input, formats);
     ZonedDateTime zdt = localDate.atStartOfDay().atZone(ZoneId.of("America/Toronto"));
 
     return zdt.toInstant();
@@ -58,7 +61,8 @@ public class ParsingServiceImpl implements ParsingService {
 
   /**
    * Match string against various date time formats
-   * @param input input string
+   *
+   * @param input      input string
    * @param formatters date time formatters to check against
    * @return LocalDate if parsing is successful
    */
@@ -67,9 +71,9 @@ public class ParsingServiceImpl implements ParsingService {
       try {
         return LocalDate.parse(input, formatter);
       } catch (DateTimeParseException dateTimeParseException) {
-        // Ignore
+        log.error("Input {} does not match formatter {}", input, formatter.toString());
       }
     }
-    throw new DateTimeParseException("Failed to parse input", input, 0);
+    throw new DateTimeParseException("Failed to parse input with existing formatters", input, 0);
   }
 }

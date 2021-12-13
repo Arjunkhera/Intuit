@@ -2,7 +2,7 @@ package com.arjun.intuit.constant;
 
 import java.time.Instant;
 
-public enum Properties {
+public enum ColumnProperty {
   GSTIN("GSTIN", String.class),
   DATE("Date", Instant.class),
   BILLNO("Bill no", String.class),
@@ -13,19 +13,19 @@ public enum Properties {
   SGST("SGST", Double.class),
   TOTAL("Total", Double.class);
 
-  String keyName;
+  private final String keyName;
   private final Class objectType;
 
-  <T> Properties(String keyName, Class<T> objectType) {
+  ColumnProperty(String keyName, Class objectType) {
     this.keyName = keyName;
     this.objectType = objectType;
   }
 
-  public Class getObjectType() {
-    return this.objectType;
-  }
-
   public String getKeyName() {
     return this.keyName;
+  }
+
+  public Class getObjectType() {
+    return this.objectType;
   }
 }

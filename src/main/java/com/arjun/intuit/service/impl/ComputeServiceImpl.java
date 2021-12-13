@@ -1,6 +1,7 @@
 package com.arjun.intuit.service.impl;
 
-import com.arjun.intuit.configuration.Config;
+import com.arjun.intuit.model.Config;
+import com.arjun.intuit.exception.ReadServiceException;
 import com.arjun.intuit.model.Output;
 import com.arjun.intuit.model.Record;
 import com.arjun.intuit.service.ComputeService;
@@ -22,7 +23,8 @@ public class ComputeServiceImpl implements ComputeService {
   MatchService matchService;
 
   @Override
-  public void compute(Config config, String firstFilePath, String secondFilePath) {
+  public void compute(Config config, String firstFilePath, String secondFilePath)
+      throws ReadServiceException {
     // Read first file
     List<Record> firstRecords = readService.read(config, firstFilePath);
 

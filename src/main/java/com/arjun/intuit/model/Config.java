@@ -1,6 +1,6 @@
-package com.arjun.intuit.configuration;
+package com.arjun.intuit.model;
 
-import com.arjun.intuit.constant.Properties;
+import com.arjun.intuit.constant.ColumnProperty;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
@@ -11,9 +11,9 @@ public class Config {
   private double partialMatchThreshold;
   private double fullMatchThreshold;
   private int numberOfMatches;
-  private final Map<Properties, Property> configMap;
+  private final Map<ColumnProperty, ColumnConfig> configMap;
 
-  public Config(Map<Properties, Property> inputMap) {
+  public Config(Map<ColumnProperty, ColumnConfig> inputMap) {
     this.configMap = inputMap;
     this.fullMatchThreshold = 1.0d;
     this.partialMatchThreshold = 0.0d;
@@ -29,10 +29,10 @@ public class Config {
 
   public static class Builder {
 
-    private final Map<Properties, Property> configMap;
     private double partialMatchThreshold;
     private double fullMatchThreshold;
     private int numberOfMatches;
+    private final Map<ColumnProperty, ColumnConfig> configMap;
 
     public Builder() {
       this.configMap = new HashMap<>();
@@ -41,8 +41,8 @@ public class Config {
       this.numberOfMatches = 5;
     }
 
-    public Config.Builder withProperty(Properties propertyKey, Property property) {
-      this.configMap.put(propertyKey, property);
+    public Config.Builder withProperty(ColumnProperty propertyKey, ColumnConfig columnConfig) {
+      this.configMap.put(propertyKey, columnConfig);
       return this;
     }
 

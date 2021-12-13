@@ -1,14 +1,14 @@
 package com.arjun.intuit.model;
 
-import com.arjun.intuit.constant.Properties;
+import com.arjun.intuit.constant.ColumnProperty;
 import java.util.Map;
 import lombok.Data;
 
 @Data
 public class Record {
-  private Map<Properties, Object> values;
+  private Map<ColumnProperty, Object> values;
 
-  public Record(Map<Properties, Object> values) {
+  public Record(Map<ColumnProperty, Object> values) {
     this.values = values;
   }
 }
