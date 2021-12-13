@@ -13,19 +13,13 @@ public class ColumnConfig {
   double weight;
   Processor processor;
 
-  public ColumnConfig(Processor processor) {
-    this.weight = 1.0;
-    this.processor = processor;
-  }
-
   public ColumnConfig(ColumnProperty columnProperty, Processor processor) {
-    this.weight = 1.0;
-    this.columnProperty = columnProperty;
-    this.processor = processor;
+    this(columnProperty, processor, 1.0d);
   }
 
-  public ColumnConfig(double weight, Processor processor) {
+  public ColumnConfig(ColumnProperty columnProperty, Processor processor, double weight) {
     this.weight = weight;
+    this.columnProperty = columnProperty;
     this.processor = processor;
   }
 }

@@ -1,5 +1,6 @@
 package com.arjun.intuit.service.impl;
 
+import com.arjun.intuit.constant.ColumnProperty;
 import com.arjun.intuit.model.ColumnConfig;
 import com.arjun.intuit.model.Config;
 import com.arjun.intuit.model.Output;
@@ -24,11 +25,12 @@ public class MatchServiceImpl implements MatchService {
     double score = 0.0d, total = 0.0d;
 
     for (ColumnConfig columnConfig :config.getColumnConfigList()) {
+      ColumnProperty columnProperty = columnConfig.getColumnProperty();
       Processor processor = columnConfig.getProcessor();
       double weight = columnConfig.getWeight();
 
-      score += processor.compare(sourceRecord.getValues().get(columnConfig.getColumnProperty()),
-          matchRecord.getValues().get(columnConfig.getColumnProperty())) * weight;
+      score += processor.compare(sourceRecord.getValues().get(columnProperty),
+          matchRecord.getValues().get(columnProperty)) * weight;
       total += weight;
     }
     output.setScore(score / total);

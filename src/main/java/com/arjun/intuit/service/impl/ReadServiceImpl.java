@@ -59,7 +59,9 @@ public class ReadServiceImpl implements ReadService {
           }
         }
 
-        records.add(new Record(recordValues));
+        Record record = new Record(recordValues);
+        log.info("Read record {}", record);
+        records.add(record);
       }
     } catch (IOException | CsvValidationException exception) {
       log.error("Failed to read file {}", Arrays.toString(exception.getStackTrace()));

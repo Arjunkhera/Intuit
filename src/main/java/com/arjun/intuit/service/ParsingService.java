@@ -10,5 +10,8 @@ public interface ParsingService {
 
   String parseString(String input);
 
+  /**
+   * Parse date time values according to pre defined formats
+   */
   Instant parseInstant(String input);
 }

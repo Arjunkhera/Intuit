@@ -17,6 +17,12 @@ public class StringProcessor extends Processor<String, Double> {
     return (threshold - distance) / threshold;
   }
 
+  /**
+   * Levenshtein Distance to calculate string distance
+   * @param word1 input string one
+   * @param word2 input string two
+   * @return edit string distance
+   */
   private double findLevenshteinDistance(String word1, String word2) {
     int[][] ans = new int[word1.length() + 1][word2.length() + 1];
     for (int i = 0; i <= word1.length(); i++) {

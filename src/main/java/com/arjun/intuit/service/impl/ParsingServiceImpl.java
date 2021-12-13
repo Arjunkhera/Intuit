@@ -38,7 +38,7 @@ public class ParsingServiceImpl implements ParsingService {
         DateTimeFormatter.ofPattern("dd-MM-yyyy")
     };
     LocalDate localDate = parseFormats(input, formats);
-    ZonedDateTime zdt = localDate.atStartOfDay().atZone(ZoneId.of("America/Toronto"));
+    ZonedDateTime zdt = localDate.atStartOfDay().atZone(ZoneId.of("Asia/Kolkata"));
 
     return zdt.toInstant();
   }
@@ -71,7 +71,7 @@ public class ParsingServiceImpl implements ParsingService {
       try {
         return LocalDate.parse(input, formatter);
       } catch (DateTimeParseException dateTimeParseException) {
-        log.error("Input {} does not match formatter {}", input, formatter.toString());
+        // log.error("Input {} does not match formatter {}", input, formatter.toString());
       }
     }
     throw new DateTimeParseException("Failed to parse input with existing formatters", input, 0);

@@ -38,7 +38,7 @@ public class ParsingServiceTest {
   public void parseInstant() {
     String input = "3/9/17";
     Instant output = parsingService.parseInstant(input);
-    assertEquals(output, Instant.parse("2017-09-03T04:00:00Z"), "Incorrect parsing");
+    assertEquals(output, Instant.parse("2017-09-02T18:30:00Z"), "Incorrect parsing");
   }
 
   @Test
@@ -47,6 +47,6 @@ public class ParsingServiceTest {
     String input = "27-09-2017";
     Instant output = parsingService.parseInstant(input);
     System.out.println(output);
-    assertEquals(output, Instant.parse("2017-09-27T04:00:00Z"), "Incorrect parsing");
+    assertEquals(output, Instant.parse("2017-09-26T18:30:00Z"), "Incorrect parsing");
   }
 }
