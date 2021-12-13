@@ -13,6 +13,10 @@ public class InstantProcessor implements Processor<Instant> {
 
   @Override
   public double process(Instant first, Instant second) {
+    if(validate(first, second)) {
+      return getEmptyScore(first, second);
+    }
+
     Duration diff = Duration.between(first, second).abs();
 
     if(diff.compareTo(threshold) > 0) {

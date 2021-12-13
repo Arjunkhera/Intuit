@@ -8,4 +8,12 @@ public class Output {
   private Double score;
   private Status status;
   private Record record;
+
+  public Output() {
+
+  }
+
+  public Output(Record record) {
+    this.record = record;
+  }
 }

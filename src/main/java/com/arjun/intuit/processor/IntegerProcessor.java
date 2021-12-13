@@ -10,6 +10,10 @@ public class IntegerProcessor implements Processor<Integer> {
 
   @Override
   public double process(Integer first, Integer second) {
+    if(validate(first, second)) {
+      return getEmptyScore(first, second);
+    }
+
     double diff = Math.abs(first - second);
     diff = Math.min(diff, threshold);
 

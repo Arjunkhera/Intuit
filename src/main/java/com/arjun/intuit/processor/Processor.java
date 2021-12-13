@@ -11,4 +11,15 @@ public interface Processor<T> {
    * @return a double value between 0 and 1
    */
   double process(T first, T second);
+
+  default boolean validate(T first, T second) {
+    return first == null || second == null;
+  }
+
+  default double getEmptyScore(T first, T second) {
+    if(first == null && second == null) {
+      return 1.0d;
+    }
+    return 0.0d;
+  }
 }

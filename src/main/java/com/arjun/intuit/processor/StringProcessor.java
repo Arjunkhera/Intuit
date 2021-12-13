@@ -10,6 +10,10 @@ public class StringProcessor implements Processor<String> {
 
   @Override
   public double process(String first, String second) {
+    if(validate(first, second)) {
+      return getEmptyScore(first, second);
+    }
+
     double distance = findLevenshteinDistance(first, second);
     distance = Math.min(distance, threshold);
 

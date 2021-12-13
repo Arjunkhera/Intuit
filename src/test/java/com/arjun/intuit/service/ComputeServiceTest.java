@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class ReadServiceTest {
+public class ComputeServiceTest {
 
   @Autowired
-  ReadService readService;
+  ComputeService computeService;
 
   @Test
-  @DisplayName("Read Service Test")
-  public void readSuccessTest() {
+  @DisplayName("Compute Service Test")
+  public void computeServiceTest() {
     Config config = new Config.Builder()
         .withProperty(Properties.GSTIN, new Property(new StringProcessor(1)))
         .withProperty(Properties.DATE, new Property(new InstantProcessor(Duration.ofDays(3))))
@@ -31,9 +31,12 @@ public class ReadServiceTest {
         .withProperty(Properties.CGST, new Property(new DoubleProcessor(200d)))
         .withProperty(Properties.SGST, new Property(new DoubleProcessor(200d)))
         .withProperty(Properties.TOTAL, new Property(new DoubleProcessor(1000d)))
+        .withMatchValues(3)
         .build();
 
-    String inputFilePath = "IDX-SE2-Craft-Buyer-Seller[776998]/IDX-SE2-Craft/Buyer (1).csv";
-    readService.read(config, inputFilePath);
+    String buyerFilePath = "IDX-SE2-Craft-Buyer-Seller[776998]/IDX-SE2-Craft/Buyer (1).csv";
+    String supplierFilePath = "IDX-SE2-Craft-Buyer-Seller[776998]/IDX-SE2-Craft/Supplier (1).csv";
+    computeService.compute(config, buyerFilePath, supplierFilePath);
   }
 }
+

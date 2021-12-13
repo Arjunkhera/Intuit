@@ -1,15 +1,19 @@
 package com.arjun.intuit.service.impl;
 
 import com.arjun.intuit.configuration.Config;
+import com.arjun.intuit.model.Output;
 import com.arjun.intuit.model.Record;
+import com.arjun.intuit.service.ComputeService;
 import com.arjun.intuit.service.MatchService;
 import com.arjun.intuit.service.ReadService;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class ComputeServiceImpl {
-
-  private final Config config;
+@Slf4j
+@Service
+public class ComputeServiceImpl implements ComputeService {
 
   @Autowired
   ReadService readService;
@@ -17,17 +21,26 @@ public class ComputeServiceImpl {
   @Autowired
   MatchService matchService;
 
-  public ComputeServiceImpl(Config config) {
-    this.config = config;
-  }
-
-  void compute(String firstFilePath, String secondFilePath) {
+  @Override
+  public void compute(Config config, String firstFilePath, String secondFilePath) {
     // Read first file
     List<Record> firstRecords = readService.read(config, firstFilePath);
 
     // Read second file
     List<Record> secondRecords = readService.read(config, secondFilePath);
 
+    for(Record record : firstRecords) {
+      List<Output> outputs = matchService.match(config, record, secondRecords);
+      generateOutput(record, outputs);
+    }
+  }
 
+  private void generateOutput(Record sourceRecord, List<Output> outputs) {
+    log.info("Source {}", sourceRecord.getValues());
+
+    int index = 1;
+    for(Output output : outputs) {
+      log.info("Match {} {}", index++,output.toString());
+    }
   }
 }

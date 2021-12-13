@@ -9,16 +9,21 @@ import com.arjun.intuit.model.Output;
 import com.arjun.intuit.model.Record;
 import com.arjun.intuit.service.MatchService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
+@Slf4j
+@Service
 public class MatchServiceImpl implements MatchService {
 
   @Override
   public Output match(Config config, Record sourceRecord, Record matchRecord) {
-    Output output = new Output();
+    Output output = new Output(matchRecord);
 
     double score = 0.0d, total = 0.0d;
     for (Entry<Properties, Property> singleConfig : config.getConfigMap().entrySet()) {
@@ -46,7 +51,13 @@ public class MatchServiceImpl implements MatchService {
       }
     }
 
-    return new ArrayList<>(outputs);
+    List<Output> result = new ArrayList<>();
+    while(!outputs.isEmpty()) {
+      result.add(outputs.poll());
+    }
+    Collections.reverse(result);
+
+    return result;
   }
 
   private void setStatus(Config config, Output output) {
@@ -56,7 +67,7 @@ public class MatchServiceImpl implements MatchService {
     } else if (score > config.getPartialMatchThreshold()) {
       output.setStatus(Status.PARTIAL);
     } else {
-      output.setStatus(Status.ONLY_IN_ONE);
+      output.setStatus(Status.ONLY_IN_FIRST);
     }
   }
 }

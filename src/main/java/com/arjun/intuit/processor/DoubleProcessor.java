@@ -9,6 +9,10 @@ public class DoubleProcessor implements Processor<Double> {
 
   @Override
   public double process(Double first, Double second) {
+    if(validate(first, second)) {
+      return getEmptyScore(first, second);
+    }
+
     double diff = Math.abs(first - second);
     diff = Math.min(diff, threshold);
 

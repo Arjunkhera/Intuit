@@ -86,6 +86,6 @@ public class MatchServiceTest {
 
     Output output = matchService.match(config, sourceRecord, matchRecord);
     assertEquals(output.getScore(), 0.0d, "Score failed to match");
-    assertEquals(output.getStatus(), Status.ONLY_IN_ONE, "Status failed to match");
+    assertEquals(output.getStatus(), Status.ONLY_IN_FIRST, "Status failed to match");
   }
 }
