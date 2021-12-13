@@ -31,6 +31,7 @@ public class ComputeServiceTest {
         .withProperty(ColumnConfigFactory.create(ColumnProperty.SGST, 1.0, 200.0d))
         .withProperty(ColumnConfigFactory.create(ColumnProperty.TOTAL, 1.0, 1000.0d))
         .withPartialMatchThreshold(0.5d)
+        .withFullMatchThreshold(0.75d)
         .withMatchValues(3)
         .build();
 

@@ -19,6 +19,7 @@ public class ColumnConfigFactory {
       Object threshold) {
     ColumnConfig columnConfig = create(columnProperty);
     columnConfig.setWeight(weight);
+    // TODO: Set assignable check for threshold
     columnConfig.getProcessor().setThreshold(threshold);
     return columnConfig;
   }
