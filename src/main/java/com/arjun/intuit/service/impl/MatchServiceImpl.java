@@ -24,7 +24,7 @@ public class MatchServiceImpl implements MatchService {
     double score = 0.0d, total = 0.0d;
 
     for (ColumnConfig columnConfig :config.getColumnConfigList()) {
-      Processor<Object, Object> processor = columnConfig.getProcessor();
+      Processor processor = columnConfig.getProcessor();
       double weight = columnConfig.getWeight();
 
       score += processor.compare(sourceRecord.getValues().get(columnConfig.getColumnProperty()),
