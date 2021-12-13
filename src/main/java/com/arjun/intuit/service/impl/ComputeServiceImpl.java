@@ -39,6 +39,7 @@ public class ComputeServiceImpl implements ComputeService {
   }
 
   private void generateOutput(Record sourceRecord, List<Output> outputs) {
+    log.info("----------------OUTPUT----------------");
     log.info("Source {}", sourceRecord.getValues());
 
     int index = 1;
