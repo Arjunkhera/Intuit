@@ -10,7 +10,7 @@ public class IntegerProcessor implements Processor<Integer> {
 
   @Override
   public double process(Integer first, Integer second) {
-    if(validate(first, second)) {
+    if(isArgumentNull(first, second)) {
       return getEmptyScore(first, second);
     }
 

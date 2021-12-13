@@ -31,7 +31,7 @@ public class ComputeServiceImpl implements ComputeService {
     // Read second file
     List<Record> secondRecords = readService.read(config, secondFilePath);
 
-    for(Record record : firstRecords) {
+    for (Record record : firstRecords) {
       List<Output> outputs = matchService.match(config, record, secondRecords);
       generateOutput(record, outputs);
     }
@@ -41,8 +41,8 @@ public class ComputeServiceImpl implements ComputeService {
     log.info("Source {}", sourceRecord.getValues());
 
     int index = 1;
-    for(Output output : outputs) {
-      log.info("Match {} {}", index++,output.toString());
+    for (Output output : outputs) {
+      log.info("Match:{} {}", index++, output.toString());
     }
   }
 }

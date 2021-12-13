@@ -12,7 +12,7 @@ public interface Processor<T> {
    */
   double process(T first, T second);
 
-  default boolean validate(T first, T second) {
+  default boolean isArgumentNull(T first, T second) {
     return first == null || second == null;
   }
 

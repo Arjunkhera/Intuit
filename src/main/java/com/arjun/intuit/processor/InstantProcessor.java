@@ -13,7 +13,7 @@ public class InstantProcessor implements Processor<Instant> {
 
   @Override
   public double process(Instant first, Instant second) {
-    if(validate(first, second)) {
+    if(isArgumentNull(first, second)) {
       return getEmptyScore(first, second);
     }
 

@@ -9,7 +9,7 @@ public class DoubleProcessor implements Processor<Double> {
 
   @Override
   public double process(Double first, Double second) {
-    if(validate(first, second)) {
+    if(isArgumentNull(first, second)) {
       return getEmptyScore(first, second);
     }
 

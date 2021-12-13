@@ -24,8 +24,8 @@ public class MatchServiceImpl implements MatchService {
   @Override
   public Output match(Config config, Record sourceRecord, Record matchRecord) {
     Output output = new Output(matchRecord);
-
     double score = 0.0d, total = 0.0d;
+
     for (Entry<ColumnProperty, ColumnConfig> singleConfig : config.getConfigMap().entrySet()) {
       Processor<Object> processor = singleConfig.getValue().getProcessor();
       double weight = singleConfig.getValue().getWeight();
@@ -58,16 +58,5 @@ public class MatchServiceImpl implements MatchService {
     Collections.reverse(result);
 
     return result;
-  }
-
-  private void setStatus(Config config, Output output) {
-    double score = output.getScore();
-    if (score >= config.getFullMatchThreshold()) {
-      output.setStatus(Status.FULL_MATCH);
-    } else if (score > config.getPartialMatchThreshold()) {
-      output.setStatus(Status.PARTIAL);
-    } else {
-      output.setStatus(Status.ONLY_IN_FIRST);
-    }
   }
 }

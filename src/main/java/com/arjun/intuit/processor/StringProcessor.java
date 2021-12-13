@@ -10,7 +10,7 @@ public class StringProcessor implements Processor<String> {
 
   @Override
   public double process(String first, String second) {
-    if(validate(first, second)) {
+    if(isArgumentNull(first, second)) {
       return getEmptyScore(first, second);
     }
 
